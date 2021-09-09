@@ -1,0 +1,32 @@
+pragma solidity 0.6.6;
+contract Hospital{
+struct Patient {
+    string name;
+    string curp;
+    uint NChildren;
+    uint height;
+    uint age;
+    string maritalstatus;
+    
+}
+
+mapping (address =>Patient) private people;
+
+function createPatient (string memory name, string memory curp, uint NChildren, uint height, uint age, string memory maritalstatus) public{
+        
+        address creator = msg.sender;
+        Patient memory newPatient;
+        newPatient.name = name;
+        newPatient.curp = curp;
+        newPatient.NChildren = NChildren;
+        newPatient.height = height;
+        newPatient.age = age;
+        newPatient.maritalstatus = maritalstatus;
+        people [creator] = newPatient;
+}
+
+function getPerson () public view returns (string memory name, uint age, uint height) {
+    address creator = msg.sender;
+    return (people [creator].name, people[creator].age, people[creator].height);
+}
+}
